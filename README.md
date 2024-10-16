@@ -1,7 +1,6 @@
 # AI_Project
 
 # Author: [GodfrinLouis-BillyRomain-BussiereAlexandre]
-# Date: [2023-02-20]
 # Description: This project have for objectif to predict imagies with differents optimizers.
 #
 # Importing necessary libraries
