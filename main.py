@@ -87,6 +87,7 @@ def plot_history(history, model_name, max_epochs=5):
     plt.ylabel('Loss')
     plt.legend(loc='upper left')
     
+    plt.savefig(f'plot/{model_name}.png')
     plt.show()
 
 # Add Dropout and Batch Normalization to VGG2 architecture
