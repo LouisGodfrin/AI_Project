@@ -17,8 +17,9 @@ def vgg_block(num_convs, num_filters):
     block = tf.keras.models.Sequential()
     for _ in range(num_convs):
         block.add(tf.keras.layers.Conv2D(num_filters, kernel_size=(3,3), padding='same', activation='relu'))
+        tf.keras.layers.BatchNormalization(),
     block.add(tf.keras.layers.MaxPooling2D(pool_size=(2,2), strides=2))
-    tf.keras.layers.Dropout(0.7),  # Dropout layer
+    tf.keras.layers.Dropout(0.5),  # Dropout layer
     return block
 
 # Display some images with their labels
@@ -70,7 +71,6 @@ def plot_history(history, model_name, max_epochs):
 def vgg1_with_optimization():
     model = tf.keras.models.Sequential([
         vgg_block(2, 32), 
-        tf.keras.layers.BatchNormalization(),  # Batch Normalization
         tf.keras.layers.Flatten(),
         tf.keras.layers.Dense(128, activation='relu'),
         tf.keras.layers.Dense(len(class_names), activation='softmax')
@@ -82,7 +82,6 @@ def vgg2_with_regularization():
     model = tf.keras.models.Sequential([
         vgg_block(2, 32), 
         vgg_block(2, 64),
-        tf.keras.layers.BatchNormalization(),  # Batch Normalization
         tf.keras.layers.Flatten(),
         tf.keras.layers.Dense(128, activation='relu'),
         tf.keras.layers.Dense(len(class_names), activation='softmax')
@@ -95,7 +94,6 @@ def vgg3_with_regularization():
         vgg_block(2, 32),
         vgg_block(2, 64),
         vgg_block(2, 128),
-        tf.keras.layers.BatchNormalization(),  # Batch Normalization
         tf.keras.layers.Flatten(),
         tf.keras.layers.Dense(128, activation='relu'),
         tf.keras.layers.Dense(len(class_names), activation='softmax')
@@ -128,9 +126,9 @@ model_vgg3 = vgg3_with_regularization()
 
 # Optimizers to compare
 optimizers = {
-    "SGD": tf.keras.optimizers.SGD(learning_rate=0.01),
+    "SGD": tf.keras.optimizers.SGD(learning_rate=0.05),
     "Adam": tf.keras.optimizers.Adam(learning_rate=0.001),
-    "RMSprop": tf.keras.optimizers.RMSprop(learning_rate=0.001)
+    "RMSprop": tf.keras.optimizers.RMSprop(learning_rate=0.0001)
 }
 
 # Train each model with different optimizers
