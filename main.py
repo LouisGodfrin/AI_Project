@@ -19,7 +19,6 @@ def vgg_block(num_convs, num_filters):
         block.add(tf.keras.layers.Conv2D(num_filters, kernel_size=(3,3), padding='same', activation='relu'))
         tf.keras.layers.BatchNormalization(),
     block.add(tf.keras.layers.MaxPooling2D(pool_size=(2,2), strides=2))
-    tf.keras.layers.Dropout(0.6),  # Dropout layer
     return block
 
 # Display some images with their labels
@@ -70,7 +69,8 @@ def plot_history(history, model_name, max_epochs):
 # VGG1 avec optimisation (SGD)
 def vgg1_with_optimization():
     model = tf.keras.models.Sequential([
-        vgg_block(2, 32), 
+        vgg_block(2, 32),
+        tf.keras.layers.Dropout(0.3),  # Dropout layer 
         tf.keras.layers.Flatten(),
         tf.keras.layers.Dense(128, activation='relu'),
         tf.keras.layers.Dense(len(class_names), activation='softmax')
@@ -80,8 +80,10 @@ def vgg1_with_optimization():
 # Add Dropout and Batch Normalization to VGG2 architecture
 def vgg2_with_regularization():
     model = tf.keras.models.Sequential([
-        vgg_block(2, 32), 
+        vgg_block(2, 32),
+        tf.keras.layers.Dropout(0.2),  # Dropout layer 
         vgg_block(2, 64),
+        tf.keras.layers.Dropout(0.4),  # Dropout layer
         tf.keras.layers.Flatten(),
         tf.keras.layers.Dense(128, activation='relu'),
         tf.keras.layers.Dense(len(class_names), activation='softmax')
@@ -92,8 +94,11 @@ def vgg2_with_regularization():
 def vgg3_with_regularization():
     model = tf.keras.models.Sequential([
         vgg_block(2, 32),
+        tf.keras.layers.Dropout(0.2),  # Dropout layer
         vgg_block(2, 64),
+        tf.keras.layers.Dropout(0.3),  # Dropout layer
         vgg_block(2, 128),
+        tf.keras.layers.Dropout(0.5),  # Dropout layer
         tf.keras.layers.Flatten(),
         tf.keras.layers.Dense(128, activation='relu'),
         tf.keras.layers.Dense(len(class_names), activation='softmax')
@@ -143,14 +148,14 @@ optimizers3 = {
 
 
 # Train each model with different optimizers
-history_vgg1_rmsprop = compile_and_train(model_vgg1, optimizers["RMSprop"], x_train, y_train_one_hot, x_test, y_test_one_hot, max_epochs)
-history_vgg2_rmsprop = compile_and_train(model_vgg2, optimizers2["RMSprop"], x_train, y_train_one_hot, x_test, y_test_one_hot, max_epochs)
-history_vgg3_rmsprop = compile_and_train(model_vgg3, optimizers3["RMSprop"], x_train, y_train_one_hot, x_test, y_test_one_hot, max_epochs)
+history_vgg1_rmsprop = compile_and_train(model_vgg1, optimizers["Adam"], x_train, y_train_one_hot, x_test, y_test_one_hot, max_epochs)
+history_vgg2_rmsprop = compile_and_train(model_vgg2, optimizers2["Adam"], x_train, y_train_one_hot, x_test, y_test_one_hot, max_epochs)
+history_vgg3_rmsprop = compile_and_train(model_vgg3, optimizers3["Adam"], x_train, y_train_one_hot, x_test, y_test_one_hot, max_epochs)
 
 # Visualize performance
-plot_history(history_vgg1_rmsprop, 'VGG1 - RMSprop', max_epochs)
-plot_history(history_vgg2_rmsprop, 'VGG2 - RMSprop', max_epochs)
-plot_history(history_vgg3_rmsprop, 'VGG3 - RMSprop', max_epochs)
+plot_history(history_vgg1_rmsprop, 'VGG1 - Adam', max_epochs)
+plot_history(history_vgg2_rmsprop, 'VGG2 - Adam', max_epochs)
+plot_history(history_vgg3_rmsprop, 'VGG3 - Adam', max_epochs)
 
 # Visualize class distribution
 plot_class_distribution(y_train, class_names)
