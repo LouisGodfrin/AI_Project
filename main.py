@@ -8,7 +8,7 @@ import numpy as np
 
 ######Value########
 
-max_epochs = 10
+max_epochs = 20
 class_names = ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
 
 ###################
@@ -19,7 +19,7 @@ def vgg_block(num_convs, num_filters):
         block.add(tf.keras.layers.Conv2D(num_filters, kernel_size=(3,3), padding='same', activation='relu'))
         tf.keras.layers.BatchNormalization(),
     block.add(tf.keras.layers.MaxPooling2D(pool_size=(2,2), strides=2))
-    tf.keras.layers.Dropout(0.5),  # Dropout layer
+    tf.keras.layers.Dropout(0.6),  # Dropout layer
     return block
 
 # Display some images with their labels
@@ -130,15 +130,26 @@ optimizers = {
     "Adam": tf.keras.optimizers.Adam(learning_rate=0.001),
     "RMSprop": tf.keras.optimizers.RMSprop(learning_rate=0.0001)
 }
+optimizers2 = {
+    "SGD": tf.keras.optimizers.SGD(learning_rate=0.05),
+    "Adam": tf.keras.optimizers.Adam(learning_rate=0.001),
+    "RMSprop": tf.keras.optimizers.RMSprop(learning_rate=0.0001)
+}
+optimizers3 = {
+    "SGD": tf.keras.optimizers.SGD(learning_rate=0.05),
+    "Adam": tf.keras.optimizers.Adam(learning_rate=0.001),
+    "RMSprop": tf.keras.optimizers.RMSprop(learning_rate=0.0001)
+}
+
 
 # Train each model with different optimizers
-history_vgg1_sgd = compile_and_train(model_vgg1, optimizers["SGD"], x_train, y_train_one_hot, x_test, y_test_one_hot, max_epochs)
-history_vgg2_adam = compile_and_train(model_vgg2, optimizers["Adam"], x_train, y_train_one_hot, x_test, y_test_one_hot, max_epochs)
-history_vgg3_rmsprop = compile_and_train(model_vgg3, optimizers["RMSprop"], x_train, y_train_one_hot, x_test, y_test_one_hot, max_epochs)
+history_vgg1_rmsprop = compile_and_train(model_vgg1, optimizers["RMSprop"], x_train, y_train_one_hot, x_test, y_test_one_hot, max_epochs)
+history_vgg2_rmsprop = compile_and_train(model_vgg2, optimizers2["RMSprop"], x_train, y_train_one_hot, x_test, y_test_one_hot, max_epochs)
+history_vgg3_rmsprop = compile_and_train(model_vgg3, optimizers3["RMSprop"], x_train, y_train_one_hot, x_test, y_test_one_hot, max_epochs)
 
 # Visualize performance
-plot_history(history_vgg1_sgd, 'VGG1 - SGD', max_epochs)
-plot_history(history_vgg2_adam, 'VGG2 - Adam', max_epochs)
+plot_history(history_vgg1_rmsprop, 'VGG1 - RMSprop', max_epochs)
+plot_history(history_vgg2_rmsprop, 'VGG2 - RMSprop', max_epochs)
 plot_history(history_vgg3_rmsprop, 'VGG3 - RMSprop', max_epochs)
 
 # Visualize class distribution
