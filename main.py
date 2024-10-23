@@ -8,7 +8,7 @@ import numpy as np
 
 ######Value########
 
-max_epochs = 20
+max_epochs = 100
 class_names = ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
 
 ###################
@@ -16,7 +16,7 @@ class_names = ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', '
 def vgg_block(num_convs, num_filters):
     block = tf.keras.models.Sequential()
     for _ in range(num_convs):
-        block.add(tf.keras.layers.Conv2D(num_filters, kernel_size=(3,3), padding='same', activation='relu'))
+        block.add(tf.keras.layers.Conv2D(num_filters, kernel_size=(3,3), activation='relu', kernel_initializer='he_uniform',  padding="same"))
         tf.keras.layers.BatchNormalization(),
     block.add(tf.keras.layers.MaxPooling2D(pool_size=(2,2), strides=2))
     return block
@@ -96,7 +96,7 @@ def vgg3_with_regularization():
         vgg_block(2, 32),
         tf.keras.layers.Dropout(0.2),  # Dropout layer
         vgg_block(2, 64),
-        tf.keras.layers.Dropout(0.3),  # Dropout layer
+        tf.keras.layers.Dropout(0.4),  # Dropout layer
         vgg_block(2, 128),
         tf.keras.layers.Dropout(0.5),  # Dropout layer
         tf.keras.layers.Flatten(),
@@ -148,14 +148,36 @@ optimizers3 = {
 
 
 # Train each model with different optimizers
-history_vgg1_rmsprop = compile_and_train(model_vgg1, optimizers["Adam"], x_train, y_train_one_hot, x_test, y_test_one_hot, max_epochs)
-history_vgg2_rmsprop = compile_and_train(model_vgg2, optimizers2["Adam"], x_train, y_train_one_hot, x_test, y_test_one_hot, max_epochs)
-history_vgg3_rmsprop = compile_and_train(model_vgg3, optimizers3["Adam"], x_train, y_train_one_hot, x_test, y_test_one_hot, max_epochs)
+print("Training models...")
+# print("VGG1 with Adam")
+# history_vgg1_Adam = compile_and_train(model_vgg1, optimizers["Adam"], x_train, y_train_one_hot, x_test, y_test_one_hot, max_epochs)
+# print("VGG2 with Adam")
+# history_vgg2_Adam = compile_and_train(model_vgg2, optimizers2["Adam"], x_train, y_train_one_hot, x_test, y_test_one_hot, max_epochs)
+# print("VGG3 with Adam")
+# history_vgg3_Adam = compile_and_train(model_vgg3, optimizers3["Adam"], x_train, y_train_one_hot, x_test, y_test_one_hot, max_epochs)
+# print("VGG1 with SGD")
+# history_vgg1_SGD = compile_and_train(model_vgg1, optimizers["SGD"], x_train, y_train_one_hot, x_test, y_test_one_hot, max_epochs)
+# print("VGG2 with SGD")
+# history_vgg2_SGD = compile_and_train(model_vgg2, optimizers2["SGD"], x_train, y_train_one_hot, x_test, y_test_one_hot, max_epochs)
+# print("VGG3 with SGD")
+# history_vgg3_SGD = compile_and_train(model_vgg3, optimizers3["SGD"], x_train, y_train_one_hot, x_test, y_test_one_hot, max_epochs)
+print("VGG1 with RMSprop")
+history_vgg1_RMSprop = compile_and_train(model_vgg1, optimizers["RMSprop"], x_train, y_train_one_hot, x_test, y_test_one_hot, max_epochs)
+print("VGG2 with RMSprop")
+history_vgg2_RMSprop = compile_and_train(model_vgg2, optimizers2["RMSprop"], x_train, y_train_one_hot, x_test, y_test_one_hot, max_epochs)
+print("VGG3 with RMSprop")
+history_vgg3_RMSprop = compile_and_train(model_vgg3, optimizers3["RMSprop"], x_train, y_train_one_hot, x_test, y_test_one_hot, max_epochs)
 
 # Visualize performance
-plot_history(history_vgg1_rmsprop, 'VGG1 - Adam', max_epochs)
-plot_history(history_vgg2_rmsprop, 'VGG2 - Adam', max_epochs)
-plot_history(history_vgg3_rmsprop, 'VGG3 - Adam', max_epochs)
+# plot_history(history_vgg1_Adam, 'VGG1 - Adam', max_epochs)
+# plot_history(history_vgg2_Adam, 'VGG2 - Adam', max_epochs)
+# plot_history(history_vgg3_Adam, 'VGG3 - Adam', max_epochs)
+# plot_history(history_vgg1_SGD, 'VGG1 - SGD', max_epochs)
+# plot_history(history_vgg2_SGD, 'VGG2 - SGD', max_epochs)
+# plot_history(history_vgg3_SGD, 'VGG3 - SGD', max_epochs)
+plot_history(history_vgg1_RMSprop, 'VGG1 - RMSprop', max_epochs)
+plot_history(history_vgg2_RMSprop, 'VGG2 - RMSprop', max_epochs)
+plot_history(history_vgg3_RMSprop, 'VGG3 - RMSprop', max_epochs)
 
 # Visualize class distribution
 plot_class_distribution(y_train, class_names)
