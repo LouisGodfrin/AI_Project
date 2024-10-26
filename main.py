@@ -129,7 +129,8 @@ model_vgg1 = vgg1_with_optimization()
 model_vgg2 = vgg2_with_regularization()
 model_vgg3 = vgg3_with_regularization()
 
-# Optimizers to compare
+
+# 3 optimizers to compare each models on each models, so optimizers for Adam, optimizers2 for SGD, and optimizers3 for RMS
 optimizers = {
     "SGD": tf.keras.optimizers.SGD(learning_rate=0.05),
     "Adam": tf.keras.optimizers.Adam(learning_rate=0.001),
@@ -149,18 +150,27 @@ optimizers3 = {
 
 # Train each model with different optimizers
 print("Training models...")
+
+# Adam part (with optimizers)
+
 # print("VGG1 with Adam")
 # history_vgg1_Adam = compile_and_train(model_vgg1, optimizers["Adam"], x_train, y_train_one_hot, x_test, y_test_one_hot, max_epochs)
 # print("VGG2 with Adam")
 # history_vgg2_Adam = compile_and_train(model_vgg2, optimizers2["Adam"], x_train, y_train_one_hot, x_test, y_test_one_hot, max_epochs)
 # print("VGG3 with Adam")
 # history_vgg3_Adam = compile_and_train(model_vgg3, optimizers3["Adam"], x_train, y_train_one_hot, x_test, y_test_one_hot, max_epochs)
+
+# SGD part (with optimizers2)
+
 # print("VGG1 with SGD")
 # history_vgg1_SGD = compile_and_train(model_vgg1, optimizers["SGD"], x_train, y_train_one_hot, x_test, y_test_one_hot, max_epochs)
 # print("VGG2 with SGD")
 # history_vgg2_SGD = compile_and_train(model_vgg2, optimizers2["SGD"], x_train, y_train_one_hot, x_test, y_test_one_hot, max_epochs)
 # print("VGG3 with SGD")
 # history_vgg3_SGD = compile_and_train(model_vgg3, optimizers3["SGD"], x_train, y_train_one_hot, x_test, y_test_one_hot, max_epochs)
+
+# RMS part (with optimizers3)
+
 print("VGG1 with RMSprop")
 history_vgg1_RMSprop = compile_and_train(model_vgg1, optimizers["RMSprop"], x_train, y_train_one_hot, x_test, y_test_one_hot, max_epochs)
 print("VGG2 with RMSprop")
@@ -169,12 +179,20 @@ print("VGG3 with RMSprop")
 history_vgg3_RMSprop = compile_and_train(model_vgg3, optimizers3["RMSprop"], x_train, y_train_one_hot, x_test, y_test_one_hot, max_epochs)
 
 # Visualize performance
+
+#plot for Adam
 # plot_history(history_vgg1_Adam, 'VGG1 - Adam', max_epochs)
 # plot_history(history_vgg2_Adam, 'VGG2 - Adam', max_epochs)
 # plot_history(history_vgg3_Adam, 'VGG3 - Adam', max_epochs)
+
+
+#plot for SGD
 # plot_history(history_vgg1_SGD, 'VGG1 - SGD', max_epochs)
 # plot_history(history_vgg2_SGD, 'VGG2 - SGD', max_epochs)
 # plot_history(history_vgg3_SGD, 'VGG3 - SGD', max_epochs)
+
+
+#plot for RMS
 plot_history(history_vgg1_RMSprop, 'VGG1 - RMSprop', max_epochs)
 plot_history(history_vgg2_RMSprop, 'VGG2 - RMSprop', max_epochs)
 plot_history(history_vgg3_RMSprop, 'VGG3 - RMSprop', max_epochs)
