@@ -1,20 +1,31 @@
 # AI_Project
 
-# Author: [GodfrinLouis-BillyRomain-BussiereAlexandre]
-# Description: This project have for objectif to predict imagies with differents optimizers.
-#
-# Importing necessary libraries
-numpy as np
-tensorflow as tf
-matplotlib.pyplot
+## Author
+Godfrin Louis, Billy Romain, Bussiere Alexandre
+
+## Description
+This project aims to predict images using different optimizers in neural networks, such as SGD, Adam, and RMSprop.
+The objective is to predict imagines based on their label, and analyze the impact of these optimizers on model performance, including convergence speed and accuracy.
+
+## Importing Necessary Libraries
+The following libraries are required for this project:
+- `numpy` as `np`
+- `tensorflow` as `tf`
+- `matplotlib.pyplot` as `plt`
+
+Make sure these libraries are installed and imported correctly for the project to run smoothly.
+
 
 # Environment
-Il est nécessaire d'être dans un environnement virtuel pour run ce projet.
+You need to be in a virtual environment to run this project.
 
-Pour ce faire:
+To do this
 
--Aller dans le Dossier du projet "AI_Project"
--Faite : python -m venv "nom_du_environnement_virtuel" (ici env par exemple)
--Ensuite faire: env/Scripts/activate
--Puis: pip install -r requirements.txt (cela installera tout ce qui est dans le fichier requirements.txt)
+-Go to the ‘AI_Project’ project folder
+-Do: python -m venv ‘virtual_environment_name’ (here env for example)
+-Then do: env/Scripts/activate
+-Then: pip install -r requirements.txt (this will install everything in the requirements.txt file)
+
+Run:
+To run the project: python main.py
 
