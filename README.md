@@ -26,6 +26,6 @@ To do this
 - Then activate the virtual environment: env/Scripts/activate
 - Then: pip install -r requirements.txt (this will install everything in the requirements.txt file)
 
-Run:
-To run the project: python main.py
+## Run the project:
+- To run the project: python main.py
 
