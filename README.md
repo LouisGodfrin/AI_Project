@@ -16,15 +16,15 @@ The following libraries are required for this project:
 Make sure these libraries are installed and imported correctly for the project to run smoothly.
 
 
-# Environment
+## Environment
 You need to be in a virtual environment to run this project.
 
 To do this
 
--Go to the ‘AI_Project’ project folder
--Do: python -m venv ‘virtual_environment_name’ (here env for example)
--Then do: env/Scripts/activate
--Then: pip install -r requirements.txt (this will install everything in the requirements.txt file)
+- Go to the ‘AI_Project’ project folder
+- Do: python -m venv ‘virtual_environment_name’ (here env for example)
+- Then activate the virtual environment: env/Scripts/activate
+- Then: pip install -r requirements.txt (this will install everything in the requirements.txt file)
 
 Run:
 To run the project: python main.py
