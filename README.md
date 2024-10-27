@@ -27,5 +27,5 @@ To do this
 - Then: pip install -r requirements.txt (this will install everything in the requirements.txt file)
 
 ## Run the project:
-- To run the project: python main.py
+- To run the project: python main.py (command inside the terminal)
 
